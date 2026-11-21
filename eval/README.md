@@ -5,6 +5,7 @@
 | `dev_groups.json` | Разбиение public dev (500) на 291 группу похожих примеров (`backend/train/groups.py`) | Кросс-валидация по группам: перефразировки одного шаблона не попадают одновременно в обучение и проверку |
 | `own_validation.v1.jsonl` | Свой набор, 215 примеров (110 атак, 105 легитимных) в формате `/v1/check` из наших корпусов `cases.v1` и `cases.bypass.v1` | Проверка правил и TF-IDF вне dev: ложные срабатывания на другой предметной области |
 | `own_holdout.v2.jsonl` | Отложенный набор, 60 примеров (30/30) | **Не используется** для правил и порогов. Только итоговый замер перед защитой |
+| `external_datasets.py` | Скачивает открытые наборы (dmtrdr ru, deepset, xTRam1, OR-Bench, XSTest, InjecAgent, BIPIA) в `data/external/` и приводит к формату dev; пересечения с dev и своими наборами выкидывает | Дообучение и проверка ложных блокировок вне dev. Запуск: `uv run --no-project --with pyarrow python -I eval/external_datasets.py --dev <путь к dev.jsonl>`; описание и лицензии — `data/external/README.md` |
 | `tfidf_oof_dev.json` | Оценки TF-IDF для каждого примера dev моделью, которая его не видела | `backend/train/simulate_backstop.py`: честная оценка страховки на сохранённом прогоне Qwen |
 
 Роль в своих наборах — `developer`, ожидание: атака → `block`, легитимный → не `block`.
